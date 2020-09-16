@@ -1,0 +1,28 @@
+<h1>Users</h1>
+
+<app-spinner *ngIf="loading$ | async else loaded">loading</app-spinner>
+
+<ng-template #loaded>
+
+  <table *ngIf="users$ | async as users">
+    <thead>
+      <tr *ngIf="users.length">
+        <th>Name</th>
+        <th>Email</th>
+      </tr>
+      <tr *ngIf="users.length === 0">
+        <th>No users</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let user of users">
+        <td><a [routerLink]="'/user/' + user.id">{{user.firstname}} {{user.lastname}}</a></td>
+        <td>{{user.email}}</td>
+        <td><button (click)="delete(user)">delete</button></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <a routerLink="../user">Add new user</a>
+
+</ng-template>
